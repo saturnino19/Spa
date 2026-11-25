@@ -1,12 +1,12 @@
 /**
  * Custom HTTP error with an explicit status code for API responses.
  */
-export class AppError extends Error {
-  public readonly statusCode: number;
-
-  constructor(statusCode: number, message: string) {
+class AppError extends Error {
+  constructor(statusCode, message) {
     super(message);
     this.statusCode = statusCode;
     this.name = "AppError";
   }
 }
+
+module.exports = { AppError };

@@ -1,12 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-import { AppError } from "../utils/AppError";
+const { AppError } = require("../utils/AppError");
 
-interface PgError extends Error {
-  code?: string;
-  detail?: string;
-}
-
-const PG_ERROR_MAP: Record<string, { status: number; message: string }> = {
+const PG_ERROR_MAP = {
   "23505": { status: 409, message: "Ya existe un registro con ese valor único." },
   "23503": { status: 400, message: "Referencia inválida o registro en uso por otra tabla." },
   "23502": { status: 400, message: "Falta un campo obligatorio." },
@@ -16,23 +10,17 @@ const PG_ERROR_MAP: Record<string, { status: number; message: string }> = {
 /**
  * Global Express error-handling middleware translating AppError and PostgreSQL errors.
  */
-export function errorHandler(
-  err: Error,
-  _req: Request,
-  res: Response,
-  _next: NextFunction
-): void {
+function errorHandler(err, _req, res, _next) {
   if (err instanceof AppError) {
     res.status(err.statusCode).json({ error: err.message });
     return;
   }
 
-  const pgErr = err as PgError;
-  if (pgErr.code && PG_ERROR_MAP[pgErr.code]) {
-    const mapped = PG_ERROR_MAP[pgErr.code];
+  if (err?.code && PG_ERROR_MAP[err.code]) {
+    const mapped = PG_ERROR_MAP[err.code];
     res.status(mapped.status).json({
       error: mapped.message,
-      detail: pgErr.detail,
+      detail: err.detail,
     });
     return;
   }
@@ -40,3 +28,5 @@ export function errorHandler(
   console.error("Unhandled error:", err);
   res.status(500).json({ error: "Error interno del servidor." });
 }
+
+module.exports = { errorHandler };

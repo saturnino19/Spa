@@ -1,12 +1,12 @@
-# Proyecto Spa - PostgreSQL + Backend Express/TypeScript
+# Proyecto Spa - PostgreSQL + Backend Express/JavaScript
 
-Base de datos PostgreSQL 16 en Docker y backend base en Node.js + Express + TypeScript (`pg`) listo para empezar a construir los módulos CRUD.
+Base de datos PostgreSQL 16 en Docker y backend base en Node.js + Express + JavaScript (`pg`) listo para empezar a construir los módulos CRUD.
 
 ## Estructura del proyecto
 
 - `docker-compose.yml`: Contenedor de PostgreSQL 16 con persistencia (`postgres_data`) y ejecución automática de `db/init.sql`.
 - `db/init.sql`: Esquema corregido a partir de `spa.sql` + datos semilla (`roles`, `users`, `clients`).
-- `backend/`: API REST en Express + TypeScript con conexión `pg`, manejo centralizado de errores y 2 CRUDs de ejemplo (`roles` y `clients`).
+- `backend/`: API REST en Express + JavaScript con conexión `pg`, manejo centralizado de errores y 2 CRUDs de ejemplo (`roles` y `clients`).
 
 
 ## 1. Levantar la base de datos PostgreSQL
@@ -31,7 +31,6 @@ docker exec -it spa_postgres psql -U spa_user -d spa_db -c "\dt"
 ```bash
 cd backend
 npm install
-npm run typecheck
 npm run dev
 ```
 
@@ -59,7 +58,7 @@ El servidor quedará escuchando en `http://localhost:3000`.
 ## Cómo agregar nuevos CRUDs
 
 1. Crea una carpeta en `backend/src/modules/<entidad>/` siguiendo la estructura de `roles/` o `clients/`:
-   - `<entidad>.service.ts` (consultas parametrizadas usando `query()` y `buildPartialUpdate()`)
-   - `<entidad>.controller.ts` (lectura de `req.params` / `req.body` y respuestas HTTP)
-   - `<entidad>.routes.ts` (rutas envueltas con `asyncHandler()`)
-2. Registra el router en `backend/src/app.ts`.
+   - `<entidad>.service.js` (consultas parametrizadas usando `query()` y `buildPartialUpdate()`)
+   - `<entidad>.controller.js` (lectura de `req.params` / `req.body` y respuestas HTTP)
+   - `<entidad>.routes.js` (rutas envueltas con `asyncHandler()`)
+2. Registra el router en `backend/src/app.js`.

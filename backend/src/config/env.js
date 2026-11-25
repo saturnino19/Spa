@@ -1,11 +1,11 @@
-import dotenv from "dotenv";
+const dotenv = require("dotenv");
 
 dotenv.config();
 
 /**
  * Validated runtime configuration loaded from environment variables.
  */
-export const env = {
+const env = {
   port: Number(process.env.PORT || 3000),
   nodeEnv: process.env.NODE_ENV || "development",
   databaseUrl: process.env.DATABASE_URL,
@@ -17,3 +17,5 @@ export const env = {
     database: process.env.DB_NAME || "spa_db",
   },
 };
+
+module.exports = { env };

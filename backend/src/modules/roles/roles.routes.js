@@ -1,6 +1,6 @@
-import { Router } from "express";
-import { asyncHandler } from "../../utils/asyncHandler";
-import * as rolesController from "./roles.controller";
+const { Router } = require("express");
+const { asyncHandler } = require("../../utils/asyncHandler");
+const rolesController = require("./roles.controller");
 
 const router = Router();
 
@@ -10,4 +10,4 @@ router.post("/", asyncHandler(rolesController.create));
 router.patch("/:id", asyncHandler(rolesController.update));
 router.delete("/:id", asyncHandler(rolesController.remove));
 
-export default router;
+module.exports = router;

@@ -1,9 +1,9 @@
-import { AppError } from "./AppError";
+const { AppError } = require("./AppError");
 
 /**
  * Parses a positive integer route parameter or throws a 400 AppError.
  */
-export function parsePositiveInt(raw: string, label = "id"): number {
+function parsePositiveInt(raw, label = "id") {
   const parsed = Number(raw);
   if (!Number.isInteger(parsed) || parsed <= 0) {
     throw new AppError(400, `El parámetro '${label}' debe ser un entero positivo.`);
@@ -15,14 +15,9 @@ export function parsePositiveInt(raw: string, label = "id"): number {
  * Builds a parameterized SQL UPDATE query from a whitelisted subset of fields.
  * Returns null when no allowed fields are present in the payload.
  */
-export function buildPartialUpdate<T extends object>(
-  tableName: string,
-  id: number,
-  payload: Partial<T>,
-  allowedFields: readonly (keyof T & string)[]
-): { text: string; values: unknown[] } | null {
-  const assignments: string[] = [];
-  const values: unknown[] = [];
+function buildPartialUpdate(tableName, id, payload, allowedFields) {
+  const assignments = [];
+  const values = [];
 
   for (const field of allowedFields) {
     const value = payload[field];
@@ -40,3 +35,5 @@ export function buildPartialUpdate<T extends object>(
   const text = `UPDATE "${tableName}" SET ${assignments.join(", ")} WHERE "id" = $${values.length} RETURNING *`;
   return { text, values };
 }
+
+module.exports = { parsePositiveInt, buildPartialUpdate };

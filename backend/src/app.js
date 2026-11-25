@@ -1,10 +1,10 @@
-import cors from "cors";
-import express from "express";
-import { checkDatabaseConnection } from "./config/db";
-import { errorHandler } from "./middlewares/errorHandler";
-import clientsRoutes from "./modules/clients/clients.routes";
-import rolesRoutes from "./modules/roles/roles.routes";
-import { asyncHandler } from "./utils/asyncHandler";
+const cors = require("cors");
+const express = require("express");
+const { checkDatabaseConnection } = require("./config/db");
+const { errorHandler } = require("./middlewares/errorHandler");
+const clientsRoutes = require("./modules/clients/clients.routes");
+const rolesRoutes = require("./modules/roles/roles.routes");
+const { asyncHandler } = require("./utils/asyncHandler");
 
 const app = express();
 
@@ -40,4 +40,4 @@ app.use((_req, res) => {
 
 app.use(errorHandler);
 
-export default app;
+module.exports = app;

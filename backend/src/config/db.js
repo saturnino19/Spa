@@ -1,10 +1,10 @@
-import { Pool, QueryResultRow } from "pg";
-import { env } from "./env";
+const { Pool } = require("pg");
+const { env } = require("./env");
 
 /**
  * Shared PostgreSQL connection pool.
  */
-export const pool = new Pool(
+const pool = new Pool(
   env.databaseUrl
     ? { connectionString: env.databaseUrl }
     : {
@@ -23,17 +23,16 @@ pool.on("error", (err) => {
 /**
  * Executes a parameterized SQL query against the shared pool.
  */
-export async function query<T extends QueryResultRow = QueryResultRow>(
-  text: string,
-  params?: unknown[]
-) {
-  return pool.query<T>(text, params);
+async function query(text, params) {
+  return pool.query(text, params);
 }
 
 /**
  * Verifies database connectivity by running a lightweight query.
  */
-export async function checkDatabaseConnection(): Promise<boolean> {
+async function checkDatabaseConnection() {
   const result = await pool.query("SELECT 1 AS ok");
   return result.rows[0]?.ok === 1;
 }
+
+module.exports = { pool, query, checkDatabaseConnection };

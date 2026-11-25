@@ -1,6 +1,6 @@
-import { Router } from "express";
-import { asyncHandler } from "../../utils/asyncHandler";
-import * as clientsController from "./clients.controller";
+const { Router } = require("express");
+const { asyncHandler } = require("../../utils/asyncHandler");
+const clientsController = require("./clients.controller");
 
 const router = Router();
 
@@ -10,4 +10,4 @@ router.post("/", asyncHandler(clientsController.create));
 router.patch("/:id", asyncHandler(clientsController.update));
 router.delete("/:id", asyncHandler(clientsController.remove));
 
-export default router;
+module.exports = router;

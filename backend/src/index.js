@@ -1,8 +1,8 @@
-import app from "./app";
-import { checkDatabaseConnection, pool } from "./config/db";
-import { env } from "./config/env";
+const app = require("./app");
+const { checkDatabaseConnection, pool } = require("./config/db");
+const { env } = require("./config/env");
 
-async function start(): Promise<void> {
+async function start() {
   try {
     await checkDatabaseConnection();
     console.log("PostgreSQL conectado correctamente.");
