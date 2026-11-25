@@ -1,0 +1,155 @@
+{
+  "info": {
+    "name": "Spa Backend API",
+    "description": "Colección inicial para probar el backend Express + PostgreSQL (Health, Roles y Clients).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "General",
+      "item": [
+        {
+          "name": "API Info",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/"
+          }
+        },
+        {
+          "name": "Healthcheck (DB)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/health"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Roles",
+      "item": [
+        {
+          "name": "Listar roles",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/roles"
+          }
+        },
+        {
+          "name": "Obtener rol por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/roles/1"
+          }
+        },
+        {
+          "name": "Crear rol",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Administrador\",\n  \"description\": \"Acceso completo al sistema\"\n}"
+            },
+            "url": "{{baseUrl}}/api/roles"
+          }
+        },
+        {
+          "name": "Actualizar rol",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Descripción actualizada del rol\"\n}"
+            },
+            "url": "{{baseUrl}}/api/roles/1"
+          }
+        },
+        {
+          "name": "Eliminar rol",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/roles/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Clients",
+      "item": [
+        {
+          "name": "Listar clientes",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/clients"
+          }
+        },
+        {
+          "name": "Obtener cliente por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/clients/1"
+          }
+        },
+        {
+          "name": "Crear cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"María\",\n  \"last_name\": \"González\",\n  \"phone\": \"0414-5550101\",\n  \"email\": \"maria.gonzalez@correo.com\",\n  \"address\": \"Av. Principal #12\",\n  \"client_type\": \"new\",\n  \"notes\": \"Primera visita\"\n}"
+            },
+            "url": "{{baseUrl}}/api/clients"
+          }
+        },
+        {
+          "name": "Actualizar cliente",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"client_type\": \"recurring\",\n  \"notes\": \"Cliente frecuente\"\n}"
+            },
+            "url": "{{baseUrl}}/api/clients/1"
+          }
+        },
+        {
+          "name": "Eliminar cliente",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/clients/1"
+          }
+        }
+      ]
+    }
+  ]
+}
